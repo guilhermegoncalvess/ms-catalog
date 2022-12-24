@@ -1,70 +1,47 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ms-catalog-deployment
+  creationTimestamp: null
   labels:
     app: ms-catalog
-    tier: backend
-    environment: production
-    version: v1
+  name: ms-catalog
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: ms-catalog
-      version: v1
+  strategy: {}
   template:
     metadata:
+      creationTimestamp: null
       labels:
         app: ms-catalog
-        version: v1
     spec:
       containers:
-        - name: ms-catalog-pod
-          image: docker.io/guilhermegoncalvess/ms-catalog
+        - image: gcr.io/learning-357114/ms-catalog:1.0.0
+          name: ms-catalog
+          resources: {}
           imagePullPolicy: Always
-
+status: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: ms-catalog-service
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
+  labels:
+    app: ms-catalog
+  name: ms-catalog
+  namespace: default
 spec:
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 50051
+    protocol: TCP
+    targetPort: 50051
   selector:
     app: ms-catalog
   type: ClusterIP
-  ports:
-    - name: grpc
-      port: 50051
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: ms-catalog-config-map
-data:
-  MS_NAME: 'ms-catalog'
-  NODE_ENV: 'production'
----
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: ms-catalog-hpa
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: ms-catalog-deployment
-  minReplicas: 2
-  maxReplicas: 4
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 80
-    - type: Resource
-      resource:
-        name: memory
-        target:
-          type: Utilization
-          averageUtilization: 90
