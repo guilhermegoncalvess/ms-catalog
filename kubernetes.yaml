@@ -39,11 +39,13 @@ spec:
   - IPv4
   ipFamilyPolicy: SingleStack
   ports:
-  - port: 50051
+  - name: service-port-grpc
+    port: 50051
     protocol: TCP
     targetPort: 50051
-  - port: 3333
-    protocol: HTTP
+  - name: service-port-http
+    port: 3333
+    protocol: TCP
     targetPort: 3333
   selector:
     app: ms-catalog
