@@ -43,7 +43,7 @@ spec:
     protocol: TCP
     targetPort: 50051
   - port: 3333
-    protocol: TCP
+    protocol: HTTP
     targetPort: 3333
   selector:
     app: ms-catalog
