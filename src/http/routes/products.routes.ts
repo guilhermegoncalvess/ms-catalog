@@ -4,7 +4,7 @@ import ProductController from '../../controllers/ProductController';
 
 const productRouter = Router();
 
-productRouter.post('/products', async (request, response) => {
+productRouter.post('/', async (request, response) => {
   const produtcController = new ProductController();
 
   const produtc = await produtcController.insert(request);
@@ -12,7 +12,7 @@ productRouter.post('/products', async (request, response) => {
   return response.json(produtc);
 });
 
-productRouter.delete('/products/:id', async (request, response) => {
+productRouter.delete('/:id', async (request, response) => {
   const produtcController = new ProductController();
 
   const produtc = await produtcController.remove(request);
@@ -20,7 +20,7 @@ productRouter.delete('/products/:id', async (request, response) => {
   return response.json(produtc);
 });
 
-productRouter.get('/products/', async (request, response) => {
+productRouter.get('/', async (request, response) => {
   const produtcController = new ProductController();
 
   const produtc = await produtcController.findAll();
@@ -28,7 +28,7 @@ productRouter.get('/products/', async (request, response) => {
   return response.json(produtc);
 });
 
-productRouter.get('/products/:id', async (request, response) => {
+productRouter.get('/:id', async (request, response) => {
   const produtcController = new ProductController();
 
   const produtc = await produtcController.findById({ ...request.body, ...request.params, ...request.query });
