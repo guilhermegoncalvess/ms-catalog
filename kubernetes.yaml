@@ -31,7 +31,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: ms-user
+    app: ms-catalog
   ports:
   - protocol: TCP
     port: 3333
