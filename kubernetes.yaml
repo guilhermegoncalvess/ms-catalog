@@ -34,6 +34,6 @@ spec:
     app: ms-catalog
   ports:
   - protocol: TCP
-    port: 3333
+    port: 80
     targetPort: 3333
 ---
