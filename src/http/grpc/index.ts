@@ -42,13 +42,13 @@ const grpcServer = (): any => {
   server.addService(product_proto.service, { GetProduct });
 
   server.bindAsync(
-    '0.0.0.0:50052',
+    '0.0.0.0:50051',
     grpc.ServerCredentials.createInsecure(),
     () => {
       server.start();
     },
   );
-  console.log('0.0.0.0:50052');
+  console.log('0.0.0.0:50051');
 };
 
 export default grpcServer;
