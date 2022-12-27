@@ -30,12 +30,24 @@ status: {}
 apiVersion: v1
 kind: Service
 metadata:
-  name: ms-catalog
-spec:
-  type: NodePort
-  selector:
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
+  labels:
     app: ms-catalog
+  name: ms-catalog
+  namespace: default
+spec:
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
   ports:
+  - port: 50051
+    protocol: TCP
+    targetPort: 50051
   - port: 3333
     protocol: TCP
     targetPort: 3333
+  selector:
+    app: ms-catalog
+  type: ClusterIP
