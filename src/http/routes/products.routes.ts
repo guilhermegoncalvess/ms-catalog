@@ -31,7 +31,11 @@ productRouter.get('/', async (request, response) => {
 productRouter.get('/:id', async (request, response) => {
   const produtcController = new ProductController();
 
-  const produtc = await produtcController.findById({ ...request.body, ...request.params, ...request.query });
+  const produtc = await produtcController.findById({
+    ...request.body,
+    ...request.params,
+    ...request.query,
+  });
 
   return response.json(produtc);
 });
