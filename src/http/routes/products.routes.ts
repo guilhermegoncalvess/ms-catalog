@@ -7,7 +7,15 @@ const productRouter = Router();
 productRouter.post('/', async (request, response) => {
   const produtcController = new ProductController();
 
-  const produtc = await produtcController.insert(request);
+  const produtc = await produtcController.insert({ ...request.body, ...request.params, ...request.query });
+
+  return response.json(produtc);
+});
+
+productRouter.put('/:id', async (request, response) => {
+  const produtcController = new ProductController();
+
+  const produtc = await produtcController.update({ ...request.body, ...request.params, ...request.query });
 
   return response.json(produtc);
 });

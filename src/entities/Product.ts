@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 
 export default interface Produtc {
-  _id?: ObjectId;
+  id?: ObjectId;
 
   name: string;
 

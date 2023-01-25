@@ -16,7 +16,7 @@ message ProductRequest {
 
 // The response message containing the greetings
 message Product {
-  string _id = 1;
+  string id = 1;
   string name = 2;
   string description = 3;
   int32 value = 4;

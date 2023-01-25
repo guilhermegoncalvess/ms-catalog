@@ -27,15 +27,36 @@ class ProductRepository implements ProdutcInterface {
     return this.collection.find<Produtc>({}).toArray();
   }
 
-  public async findById(id: string): Promise<Produtc> {
+  public async findById(id: string): Promise<any> {
     const productId = new ObjectId(id);
-    const product = await this.collection.findOne<Produtc>({
+    const product = await this.collection.findOne<any>({
       _id: productId,
     });
 
     if (!product) throw new AppError('could not find the product.', 404);
 
-    return product;
+    return { id: product._id, ...product };
+  }
+
+  public async update(payload: any): Promise<Produtc> {
+    const { id, ...newProduct } = payload;
+
+    const product = await this.findById(id);
+
+    if (!product) throw new AppError('could not find the product.', 404);
+
+    await this.collection.updateOne(
+      { '_id': new ObjectId(id) },
+      {
+        $set: {
+          ...newProduct,
+        },
+      },
+    );
+
+    const updatedProduct = await this.findById(id);
+
+    return updatedProduct;
   }
 
   public async remove(id: string): Promise<any> {

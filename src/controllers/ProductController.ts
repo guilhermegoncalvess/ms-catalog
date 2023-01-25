@@ -1,32 +1,36 @@
 import Produtc from '../entities/Product';
-import ProductRepository from '../repositories/ProductRepository';
+import ProductService from '../services/ProductService';
 
 export default class ProductController {
   async insert(payload: any): Promise<string> {
-    const { name, description, value } = payload.body;
+    const productService = new ProductService();
 
-    const productRepository = new ProductRepository();
-
-    return productRepository.insert({ name, description, value });
+    return productService.insert(payload);
   }
 
   async findAll(): Promise<Produtc[]> {
-    const productRepository = new ProductRepository();
+    const productService = new ProductService();
 
-    return productRepository.findAll();
+    return productService.findAll();
   }
 
   async findById(payload: any): Promise<Produtc> {
     const { id } = payload;
-    const productRepository = new ProductRepository();
+    const productService = new ProductService();
 
-    return productRepository.findById(id);
+    return productService.findById(id);
+  }
+
+  async update(payload: any): Promise<Produtc> {
+    const productService = new ProductService();
+
+    return productService.update(payload);
   }
 
   async remove(payload: any): Promise<Produtc> {
     const { id } = payload.params;
-    const productRepository = new ProductRepository();
+    const productService = new ProductService();
 
-    return productRepository.remove(id);
+    return productService.remove(id);
   }
 }
