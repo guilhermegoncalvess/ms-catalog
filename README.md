@@ -14,7 +14,7 @@ The proposed architecture intends to decompose the modules of the vision of a mo
 
 <div align="center">
   
-![image](./docs/businessCapability/EN-businessCapability.drawio.png)
+![image](./docs/EN-businessCapability.drawio.png)
   <p>Decomposition of domains by business capability – Figure 1</p>
   <br>
 </div>
